@@ -220,7 +220,7 @@ nav .btn
   
   /* ナビゲーション（開） */
   
-  html .open, .open body
+  html.open, .open body
   {
     height: 100%;
     overflow: hidden;
