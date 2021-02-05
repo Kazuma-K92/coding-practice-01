@@ -1,136 +1,790 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+@charset "utf-8";
 
-  <title>BB アシスタントカンパニー</title>
+/* 基本 */
+body
+{
+  font-family: 'Noto Sans JP', sans-serif;
+  animation: fade 2s;
+}
 
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wsght@400;700;900&display=swap" rel="stylesheet">
+@keyframes fade
+{
+  0%
+  {
+    opacity: 0;
+  }
+
+  100%
+  {
+    opacity: 1;
+  }
+}
+
+.container
+{
+  width: 85%;
+  margin: 0 auto;
+}
+
+h2
+{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+h3
+{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+ul
+{
+  list-style: none;
+}
+
+.btn
+{
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  box-sizing: border-box;
+  margin: 0 auto;
+  border-radius: 24px;
+}
+
+.screen-reader-only
+{
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+}
+
+
+@media(min-width: 768px)
+{
+  .container
+  {
+    width: 91%;
+    max-width: 1240px;
+  }
+
+  h2
+  {
+    font-size: 36px;
+  }
+}
+
+/* リセット */
+body, h1, h2, h3, h4, h5, h6, p, ul, figure, input, textarea
+{
+  margin: 0;
+  padding: 0;
+}
+
+a
+{
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover
+{
+  opacity: 0.8;
+}
+
+/* ========== header ========== */
+
+header
+{
+  position: relative;
+}
+
+header .container
+{
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+}
+
+.logo
+{
+  display: flex;
+  align-items: center;
+}
+
+header .logo img
+{
+  margin-right: 10px;
+}
+
+header .corporate__name
+{
+  color: #333333;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+header .corporate__sub
+{
+  color: #707F89;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+nav .btn
+{
+  display: inline-block;
+  width: 148px;
+  padding: 11px 11px;
+  text-align: center;
+}
+
+@media(max-width: 767px)
+{
+  nav
+  {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: left 0.5s;
+  }
   
-  <link rel="icon" href="images/bb.png" type="image/png">
-  <link rel="icon" href="images/bb.svg" type="image/svg+xml">
+  nav ul
+  {
+    text-align: center;
+  }
+  
+  nav li:not(:last-child)
+  {
+    margin-bottom: 40px;
+  }
+  
+  nav .btn
+  {
+    display: inline-block;
+    width: 148px;
+    padding: 11px 11px;
+    text-align: center;
+    color: #fff;
+    border: solid 2px #fff;
+  }
+  
+  .hamburger
+  {
+    box-sizing: content-box;
+    padding: 0;
+    margin-left: auto;
+    border-style: none;
+    background: none;
+    width: 20px;
+    height: 14px;
+    color: #2E5180;
+  }
+  
+  .hamburger::before, .hamburger::after
+  {
+    content: '';
+    display: block;
+    background: #2E5180;
+    height: 2px;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .hamburger::before
+  {
+    transform: translateY(-6px);
+    box-shadow: 0 7px;
+  }
+  
+  .hamburger::after
+  {
+    transform: translateY(6px);
+  }
+  
+  /* ナビゲーション（閉） */
+  html, body
+  {
+    overflow-x: hidden;
+  }
+  
+  /* ナビゲーション（開） */
+  
+  html.open, .open body
+  {
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .open .hamburger
+  {
+    z-index: 1000;
+    color: #fff;
+  }
+  
+  .open .hamburger::before
+  {
+    transform: translateY(1px) rotate(45deg);
+    box-shadow: none;
+  }
+  
+  .open .hamburger::after
+  {
+    transform: translateY(-1px) rotate(-45deg);
+  }
+  
+  .open form
+  {
+    display: none;
+  }
+  
+  .open nav
+  {
+    left: 0;
+  }
+}
 
-</head>
-<body>
-  <header>
-    <div class="container">
-      <div class="logo">
-        <img src="images/bb.svg" width="42" height="42" alt="BB Assistant Company">
-        <div class="corporate">
-          <p class="corporate__name">BBアシスタントカンパニー</p>
-          <p class="corporate__sub">確かなスタッフによる業務サポート</p>
-        </div>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#">会社情報</a></li>
-          <li><a href="#">サービス</a></li>
-          <li><a href="#" class="btn">お問い合わせ</a></li>
-        </ul>
-      </nav>
-      <button class="hamburger" type="button" onclick="ClickNav()">
-        <span class="screen-reader-only">MENU</span>
-      </button>
-    </div>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="container">
-          <h1><img src="images/hero.svg" alt=""></h1>
-          <p class="hero-sub">縁の下の力持ちとしてお仕事を支えます</p>
-        </div>
-      </div>
-    </section>
-    <section class="message">
-      <div class="container">
-        <h2>ビジネスアシスタントとして<br>サポートを続けて20年</h2>
-        <p>プロのビジネスアシスタントとして独立後、さまざまなお客様からご依頼をいただき、多様な業務、事業、効率化などのサポートを行ってきました。得意分野が多岐にわたるスタッフが揃っていますので、必要に応じてどのような業務にも対応いたし、雑事に振り回されることなく、重要な案件に取り組んでいただくことを目指しています。</p>
-      </div>
-    </section>
-    <section class="service">
-      <div class="container">
-        <div class="service-title">
-          <h2>アシスタントサービス</h2>
-          <p class="service-title-sub">私たちにできること</p>
-        </div>
-        <div class="details">
-          <article class="detail office">
-            <figure></figure>
-            <h3>オフィス業務 <br>サポート</h3>
-            <p>書類管理、電話・メール応対、スケジュール管理、デジタルトランスフォーメーションなど、さまざまなオフィス業務のサポートを行います。</p>
-            <a href="#" class="btn">OFFICE</a>
-          </article>
-          <article class="detail manage">
-            <figure></figure>
-            <h3>マネージメント<br>サポート</h3>
-            <p>プロジェクトチームの構成メンバーのマネージメント、案件の進捗管理、リーダーのアシスタントサポートなどを行います。</p>
-            <a href="#" class="btn">MANAGEMENT</a>
-          </article>
-          <article class="detail research">
-            <figure></figure>
-            <h3>調査・研究<br>サポート</h3>
-            <p>各種事業の立ち上げ、運営にかかわる調査・研究のサポートや、特定分野の専門家との提携のお手伝いなどを行います。</p>
-            <a href="#" class="btn">RESEARCH</a>
-          </article>
-        </ul>
-      </div>
-    </section>
-    <section class="contact">
-      <div class="container">
-        <div class="contact-text">
-          <h2>お問い合わせ</h2>
-          <p>もっと業務を効率化したい<br>マネージメントの煩わしさから解放されたい<br>本業に集中したいなど<br>些細なことでもお気軽にお問い合わせください。</p>
-        </div>
-        <form>
-          <p>
-            <label>
-              <span class="screen-reader-only">お名前</span>
-              <input type="text" name="name" placeholder="お名前" class="contact-input-item">
-            </label>
-          </p>
-          <p>
-            <label>
-              <span class="screen-reader-only">メールアドレス</span>
-              <input type="email" name="email" placeholder="メールアドレス" class="contact-input-item">
-            </label>
-          </p>
-          <p>
-            <label>
-              <span class="screen-reader-only">メッセージ</span>
-              <textarea name="msg" placeholder="メッセージを入力してください。" class="contact-input-item"></textarea>
-            </label>
-          </p>
-          <p>
-            <input type="submit" value="送信" class="btn">
-          </p>
-        </form>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <div class="container">
-      <div class="corporate-info">
-        <div class="logo">
-          <img src="images/bb-white.svg" width="46" height="46" alt="BB Assistant Company">
-          <p class="corporate__name">BBアシスタントカンパニー</p>
-        </div>
-        <p class="address">〒901-3125<br>沖縄県島尻郡久米島町字鳥島グスク<br>0997-1234-5678</p>
-      </div>
-      <ul class="SNS">
-        <li class="SNS-link"><a href="#"><img src="images/logo-twitter.svg" width="35" height="35" alt="Twitter"></a></li>
-        <li class="SNS-link"><a href="#"><img src="images/logo-facebook.svg" width="35" height="35" alt="Facebook"></a></li>
-        <li class="SNS-link"><a href="#"><img src="images/logo-instagram.svg" width="35" height="35" alt="Instagram"></a></li>
-      </ul>
-    </div>
-  </footer>
-  <script>
-    function ClickNav() {
-      document.querySelector('html').classList.toggle('open');
-    }
-  </script>
-</body>
-</html>
+
+@media(min-width: 768px)
+{
+  header .container
+  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 20px;
+  }
+  
+  header .logo img
+  {
+    width: 59px;
+    height: 59px;
+    margin-right: 18px;
+  }
+
+  header .corporate__name
+  {
+    font-size: 20px;
+  }
+
+  header .corporate__sub
+  {
+    font-size: 12px;
+  }
+
+  nav
+  {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  nav ul
+  {
+    display: flex;
+    align-items: center;
+    color: #333333;
+  }
+  nav .btn
+  {
+    display: inline-block;
+    color: #2E5180;
+    border: solid 2px #2E5180;
+
+  }
+  
+  nav li:not(:last-child)
+  {
+     margin-right: 23px;
+  }
+
+  .hamburger
+  {
+    display: none;
+  }
+}
+
+/* ========== hero ========== */
+
+.hero
+{
+  height: 400px;
+  background-image: url(images/hero.jpg);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+}
+
+.hero-copy
+{
+  align-self: flex-end;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.76);
+  padding: 33px 0;
+}
+
+.hero .container
+{
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.hero img
+{
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+
+.hero-sub
+{
+  font-size: 14px;
+  color: #2E5180;
+  text-align: center;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+@media(min-width: 768px)
+{
+  .hero
+  {
+    height: 700px;
+  }
+
+  .hero-copy
+  {
+    padding: 47px 0 44px;
+  }
+
+  .hero-sub
+  {
+    font-size: 16px;
+    margin-bottom: 22px;
+  }
+}
+
+/* ========== message ========== */
+.message
+{
+  background-color: #2E5180;
+  color: #fff;
+  padding: 67px 0;
+}
+
+.message h2
+{
+  text-align: center;
+  margin-bottom: 38px;
+  line-height: 1.67;
+}
+
+.message p
+{
+  font-size: 14px;
+  line-height: 1.86;
+}
+
+@media(min-width: 768px)
+{
+  .message
+  {
+    padding: 81px 0;
+  }
+  .message .container
+  {
+    max-width: 640px;
+  }
+
+  .message h2
+  {
+    line-height: 1.33;
+  }
+}
+
+@media(max-width: 370px)
+{
+  .message h2
+  {
+    font-size: 20px;
+  }
+}
+
+/* ========== service ========== */
+
+.service
+{
+  padding: 67px 0;
+  text-align: center;
+}
+
+.service-title
+{
+  margin-bottom: 53px;
+  color: #333333;
+}
+
+.service h2
+{
+  display: inline-block;
+  color: #2E5180;
+  line-height: 1.5;
+  padding-bottom: 9px;
+  margin-bottom: 16px;
+  border-bottom: dashed 2px currentColor;
+}
+
+.service-title-sub
+{
+  font-size: 16px;
+  color: #2E5180;
+}
+
+.detail:not(:last-child)
+{
+  margin-bottom: 67px;
+}
+
+.detail figure
+{
+  height: 246px;
+  margin-bottom: 22px;
+  background-position: center;
+  background-size: cover;
+}
+
+.detail.office figure
+{
+  background-image: url(images/office.jpg);
+}
+
+.detail.manage figure
+{
+  background-image: url(images/manage.jpg);
+}
+
+.detail.research figure
+{
+  background-image: url(images/research.jpg);
+}
+
+.detail h3
+{
+  margin-bottom: 17px;
+}
+
+.detail p
+{
+  max-width: 264px;
+  margin: 0 auto 25px;
+  font-size: 12px;
+}
+
+.detail .btn
+{
+  width: 208px;
+  padding: 11px 11px;
+  color: #2E5180;
+  border: solid 2px currentColor;
+}
+
+@media(min-width: 768px)
+{
+  .service
+  {
+    margin: 95px 0 87px;
+
+  }
+
+  .service-title
+  {
+    margin-bottom: 75px;
+  }
+
+  .service h2
+  {
+    font-size: 36px;
+
+  }
+
+  .details
+  {
+    display: flex;
+  }
+
+  .detail
+  {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 3.22%;
+    
+  }
+
+  .detail:last-child
+  {
+    margin-right: 3.22%;
+  }
+
+  .detail:not(:last-child)
+  {
+    margin-bottom: 0;
+  }
+
+  .detail figure
+  {
+    height: 360px;
+    margin-bottom: 33px;
+  }
+
+  .detail h3
+  {
+    font-size: 30px;
+    margin-bottom: 26px;
+  }
+
+  .detail p
+  {
+    width: 78%;
+    max-width: none;
+  }
+
+  .detail .btn
+  {
+    margin-top: auto;
+  }
+
+}
+
+@media(max-width: 850px)
+{
+  .detail h3
+  {
+    font-size: 28px;
+  }
+}
+
+/* ========== contact ========== */
+
+.contact
+{
+  background-color: #EEF4F8;
+  color: #333333;
+}
+
+.contact .container
+{
+  padding: 62px 0;
+}
+
+.contact  h2
+{
+  margin-bottom: 42px;
+}
+
+.contact-text p
+{
+  font-size: 12px;
+  line-height: 2.1;
+  margin-bottom: 46px;
+}
+
+form
+{
+  display: flex;
+  flex-direction: column;
+  flex:1;
+}
+
+.contact-input-item
+{
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 14px;
+  border: solid 1px #CDD6DD;
+  box-sizing: border-box;
+  margin-bottom: 17px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #333333;
+  -webkit-appearance: none;
+}
+
+.contact-input-item::placeholder
+{
+  color: #CDD6DD;
+  opacity: 1.0;
+}
+
+.contact-input-item:-ms-input-placeholder
+{
+  color: #CDD6DD;
+}
+
+form input
+{
+  height: 50px;
+}
+
+form textarea
+{
+  height: 150px;
+  line-height: 3.125;
+}
+
+form .btn
+{
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 11px 0;
+  color: #fff;
+  background-color: #2E5180;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+@media(min-width: 768px)
+{
+  .contact
+  {
+    background: none;
+  }
+
+  .contact .container
+  {
+    background-color: #EEF4F8;
+    padding: 62px 9%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .contact-text
+  {
+    flex: 0 0 auto;
+  }
+  .contact  h2
+  {
+    font-size: 36px;
+  }
+
+  .contact-text p
+  {
+    font-size: 14px;
+    line-height: 1.85;
+    margin-bottom: 0;
+  }
+  
+  form
+  {
+    flex: 1 1 auto;
+    max-width: 457px;
+    margin-left: 1rem;
+  }
+
+  form .btn
+  {
+    width: 272px;
+  }
+}
+
+/* ========== footer ========== */
+
+footer
+{
+  color: #fff;
+  background-color: #2E5180;
+}
+
+footer .container
+{
+  padding: 38px 0 56px;
+}
+
+footer .logo img
+{
+  margin-right: 14px;
+}
+
+footer .corporate__name
+{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+footer .address, footer .SNS
+{
+  margin-left: 60px;
+}
+
+footer .address
+{
+  margin-bottom: 36px;
+}
+
+footer .SNS
+{
+  display: flex;
+  flex-direction: row;
+}
+
+footer .SNS-link:not(:last-child)
+{
+  margin-right: 25px;
+}
+
+@media(min-width: 768px)
+{
+  footer
+  {
+    margin-top: -48px;
+    padding-top: 48px;
+    position: relative;
+    z-index: -1;
+  }
+
+  footer .container
+  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 57px 0 74px;
+}
+
+  footer .logo img
+  {
+    width: 59px;
+    height: 59px;
+    margin-right: 18px;
+  }
+
+  footer .corporate__name
+  {
+    font-size: 20px;
+  }
+
+  footer .address
+  {
+    margin-left: 77px;
+    margin-bottom: 36px;
+  }
+
+  footer .SNS
+  {
+    height: 59px;
+    align-items: center;
+  }
+
+}
